@@ -1,0 +1,27 @@
+{
+    "name": "gintonicweb/websockets",
+    "description": "Websockets plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "require": {
+        "php": ">=5.4.16",
+        "cakephp/cakephp": "~3.0",
+        "voryx/thruway":"0.3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Websockets\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Websockets\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    },
+    "bin": [
+        "bin/server.php"
+    ]
+}
