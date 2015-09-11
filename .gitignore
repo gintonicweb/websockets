@@ -1,13 +1,12 @@
+GintonicCMS
+
+/assets/vendor/*
+/assets/tmp/*
+/node_modules/*
+
 CakePHP 3
 
 /vendor/*
 /config/app.php
 /tmp/*
 /logs/*
-
-CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
