@@ -5,7 +5,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+    banner: 
+      '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
@@ -19,10 +20,24 @@ module.exports = function(grunt) {
             rjsConfig: 'assets/js/main.js'
         }
     },
+    babel: {
+      options: {
+        sourceMap: false
+      },
+      dist: {
+        files: [{
+            expand: true,
+            cwd: 'assets/js/',
+            src: ['**/*.*'],
+            dest: 'assets/tmp/',
+            ext: '.js'
+        }]
+      }
+    },
     requirejs: {
       compile: {
         options: {
-          appDir:"assets/js",
+          appDir:"assets/tmp/",
           baseUrl:"./",
           dir:"webroot/js",
           modules:[{
@@ -119,8 +134,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-bower-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-babel');
 
   // Default task.
-  grunt.registerTask('default', ['bowerRequirejs','requirejs', 'copy']);
+  grunt.registerTask('default', ['bowerRequirejs', 'babel', 'requirejs', 'copy']);
 
 };

@@ -16,9 +16,7 @@
     "!webroot/**"
   ],
   "dependencies": {
-      "autobahn": "~0.9.6"
-  },
-  "devDependencies": {
+      "autobahn": "~0.9.6",
       "react": "~0.13.3"
   }
 }
