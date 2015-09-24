@@ -1,17 +1,16 @@
 <?php
 
-require dirname(__DIR__) . '/vendor/autoload.php';
-require dirname(__DIR__).'/../../../config/bootstrap.php';
+require './vendor/autoload.php';
+require './config/bootstrap.php';
 
-use GintonicCMS\Websocket\UserDb;
-use GintonicCMS\Websocket\SessionManager;
+use Websockets\Websocket\UserDb;
+use Websockets\Websocket\SessionManager;
 use Thruway\Authentication\WampCraAuthProvider;
 use Thruway\Peer\Router;
 use Thruway\Transport\RatchetTransportProvider;
 use Thruway\Authentication\AuthenticationManager;
 
 $router = new Router();
-
 
 // setup some users to auth against
 $userDb = new UserDb();

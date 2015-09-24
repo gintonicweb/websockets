@@ -1,6 +1,6 @@
 define(function(require) {
 
-    var websocket = require('gintonic_c_m_s/js/websocket/websocket');
+    var websocket = require('websockets/websocket');
     var $ = require('jquery');
 
     var CommunicationMixin = {
@@ -15,7 +15,9 @@ define(function(require) {
 
         recieve: function(data){
             var data = JSON.parse(data[0]);
-            this.recieved(data);
+            if ($.isFunction(this.recieved)) {
+                this.recieved(data);
+            }
         },
 
         fetch: function(){
@@ -26,14 +28,16 @@ define(function(require) {
                 dataType: 'json',
                 cache: false,
                 data: {
-                    id: [this.props.id]
+                    id: this.props.id
                 }
             })
             .done(function(data){
-                that.fetched(data);
+                if ($.isFunction(that.fetched)) {
+                    that.fetched(data);
+                }
             })
             .fail(function(data){
-                console.log('fail');
+                console.log('Unable to fetch data');
                 console.log(data);
             });
         }, 
@@ -53,7 +57,7 @@ define(function(require) {
                 }
             })
             .fail(function(data){
-                console.log('fail');
+                console.log('Unable to send data');
                 console.log(data);
             });
         },

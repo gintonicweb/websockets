@@ -100,7 +100,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+        src: ['assets/tmp/*.js']
       }
     },
     qunit: {
@@ -111,15 +111,11 @@ module.exports = function(grunt) {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
-      requirejs: {
+      scripts: {
         files: [
             "assets/js/**/*"
         ],
-        tasks: ["requirejs"]
-      },  
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
+        tasks: ['babel', "requirejs", 'copy']
       }
     }
   });

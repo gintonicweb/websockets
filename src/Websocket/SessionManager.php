@@ -1,6 +1,6 @@
 <?php
 
-namespace GintonicCMS\Websocket;
+namespace Websockets\Websocket;
 
 use Thruway\Peer\Client;
 

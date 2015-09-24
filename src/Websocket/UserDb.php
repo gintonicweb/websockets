@@ -1,6 +1,6 @@
 <?php
 
-namespace GintonicCMS\Websocket;
+namespace Websockets\Websocket;
 
 use Cake\Controller\Controller;
 use Thruway\Authentication\WampCraUserDbInterface;

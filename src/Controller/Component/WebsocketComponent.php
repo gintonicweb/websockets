@@ -1,11 +1,11 @@
 <?php
-namespace GintonicCMS\Controller\Component;
+namespace Websockets\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Event\Event;
 use Cake\Network\Response;
-use GintonicCMS\Websocket\Trigger;
+use Websockets\Websocket\Trigger;
 
 /**
  * Websocket component
