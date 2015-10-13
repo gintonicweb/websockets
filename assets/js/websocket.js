@@ -3,8 +3,13 @@ define(function(require) {
     var autobahn = require('autobahn');
     var instance = null;
 
-    var user = "1";
-    var key = "phil.laf@gmail.com";
+    var user = key = getCookie('Jwt');
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
 
     function Websocket() {
 
@@ -26,8 +31,6 @@ define(function(require) {
 
         connection.onopen = function (session, details) {
             console.log("connected session with ID " + session.id);
-            console.log("authenticated using method '" + details.authmethod + "' and provider '" + details.authprovider + "'");
-            console.log("authenticated with authid '" + details.authid + "' and authrole '" + details.authrole + "'");
             that.session = session;
             that.subscribes.forEach(function(sub) {
                 session.subscribe(sub['topic'], sub['method'])
@@ -42,13 +45,11 @@ define(function(require) {
     }
 
     function onchallenge (session, method, extra) {
-        console.log(method, extra);
         if (method === "wampcra") {
             var keyToUse = key;
             if (typeof extra.salt !== 'undefined') {
                 keyToUse = autobahn.auth_cra.derive_key(key, extra.salt);
             }
-            console.log("authenticating via '" + method + "' and challenge '" + extra.challenge + "'");
             return autobahn.auth_cra.sign(keyToUse, extra.challenge);
         } else {
             throw "don't know how to authenticate using '" + method + "'";
