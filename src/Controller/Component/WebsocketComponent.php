@@ -5,6 +5,7 @@ use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Event\Event;
 use Cake\Network\Response;
+use Cake\Utility\Hash;
 use Websockets\Websocket\Trigger;
 
 /**
@@ -69,6 +70,12 @@ class WebsocketComponent extends Component
         $_ws = $event->subject()->viewVars['_ws'];
         $data = (isset($_ws) && isset($_ws['data'])) ? $_ws['data'] : null;
         $users = (isset($_ws) && isset($_ws['users'])) ? $_ws['users'] : null;
+
+        if (get_class($users) === 'Cake\ORM\ResultSet') {
+            $users = $users->extract('id')->toArray();
+        } else {
+            debug('not implemented yet');
+        }
 
         $trigger = new Trigger($this->_controller);
         $trigger->publish($data, $users);

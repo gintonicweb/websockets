@@ -3,7 +3,7 @@ define(function(require) {
     var autobahn = require('autobahn');
     var instance = null;
 
-    var user = key = getCookie('Jwt');
+    var token = getCookie('Jwt');
 
     function getCookie(name) {
         var value = "; " + document.cookie;
@@ -24,9 +24,10 @@ define(function(require) {
         var connection = new autobahn.Connection({
             url: 'ws://127.0.0.1:9090/ws',
             realm: 'realm1',
-            authmethods: ["wampcra"],
-            authid: user,
-            onchallenge: onchallenge
+            authmethods: ["jwt"],
+            onchallenge: function (session, method, extra) {
+                return token;
+            }
         });
 
         connection.onopen = function (session, details) {
@@ -44,17 +45,7 @@ define(function(require) {
         connection.open();
     }
 
-    function onchallenge (session, method, extra) {
-        if (method === "wampcra") {
-            var keyToUse = key;
-            if (typeof extra.salt !== 'undefined') {
-                keyToUse = autobahn.auth_cra.derive_key(key, extra.salt);
-            }
-            return autobahn.auth_cra.sign(keyToUse, extra.challenge);
-        } else {
-            throw "don't know how to authenticate using '" + method + "'";
-        }
-    }
+    
 
     Websocket.prototype.subscribe = function(sub) {
         if (this.session == null) {

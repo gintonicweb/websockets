@@ -5,7 +5,7 @@ namespace Websockets\Websocket;
 use Cake\Contoller\Controller;
 use Cake\Core\App;
 use Psr\Log\NullLogger;
-use Thruway\Authentication\ClientWampCraAuthenticator;
+use Websockets\Websocket\ClientJwtAuthenticator;
 use Thruway\Logging\Logger;
 
 class Trigger extends Client
@@ -23,7 +23,7 @@ class Trigger extends Client
         parent::__construct();
         $this->_controller = $controller;
         $this->setAuthId('server');
-        $this->addClientAuthenticator(new ClientWampCraAuthenticator('server', 'server'));
+        $this->addClientAuthenticator(new ClientJwtAuthenticator('server'));
     }
 
     /**
@@ -32,7 +32,7 @@ class Trigger extends Client
      */
     public function onSessionStart($session, $transport)
     {
-        if ($this->_users == null) {
+        if ($this->_users === null) {
             $session->publish(
                 $this->_call[0],
                 $this->_call[1],
@@ -64,7 +64,7 @@ class Trigger extends Client
             $args = [$args];
         }
 
-        $this->_users = [['authid' => 1]];//$users;
+        $this->_users = $users;
 
         // this undocumented array should be a data type
         $this->_call = [$topic, [json_encode($args)], $argsKw, ["acknowledge" => true]];

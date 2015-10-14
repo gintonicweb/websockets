@@ -48,8 +48,13 @@ class SessionManager extends Client
     /**
      * TODO doc block
      */
-    public function getUserSession($args)
+    public function getUserSession(array $userIds)
     {
-        return $this->sessions[$args[0]->authid];
+        $users = array_intersect_key($this->sessions, array_flip($userIds));
+        $sessions = [];
+        array_walk_recursive($users, function ($session) use (&$sessions) { 
+            $sessions[] = $session; 
+        });
+        return $sessions;
     }
 }
