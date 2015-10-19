@@ -84,9 +84,6 @@ class Trigger extends Client
      */
     public function error($error)
     {
-        if ($error != null) {
-            debug($error);
-        }
         $this->getLoop()->stop();
     }
 }

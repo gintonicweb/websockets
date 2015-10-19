@@ -48,7 +48,6 @@ class Client extends ThruwayClient
      */
     public function kill()
     {
-        debug('killed');
         $this->getLoop()->stop();
     }
 }

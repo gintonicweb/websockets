@@ -22,7 +22,7 @@ class JwtAuthenticationProvider extends AbstractAuthProviderClient
             if (Configure::read('debug')) {
                 throw $e;
             }
-            return false;
+            return ["FAILURE"];
         }
 
         if ($token->id == 'server') {

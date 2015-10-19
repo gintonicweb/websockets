@@ -38,7 +38,6 @@ define(function(require) {
             })
             .fail(function(data){
                 console.log('Unable to fetch data');
-                console.log(data);
             });
         }, 
 
@@ -58,7 +57,6 @@ define(function(require) {
             })
             .fail(function(data){
                 console.log('Unable to send data');
-                console.log(data);
             });
         },
     };

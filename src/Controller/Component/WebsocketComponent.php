@@ -74,7 +74,7 @@ class WebsocketComponent extends Component
         if (get_class($users) === 'Cake\ORM\ResultSet') {
             $users = $users->extract('id')->toArray();
         } else {
-            debug('not implemented yet');
+            // not implemented yet
         }
 
         $trigger = new Trigger($this->_controller);
