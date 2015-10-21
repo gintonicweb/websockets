@@ -22,6 +22,6 @@
         }
     },
     "bin": [
-        "bin/server.php"
+        "bin/wsserver"
     ]
 }
