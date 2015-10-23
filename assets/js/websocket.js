@@ -22,7 +22,7 @@ define(function(require) {
         that = this;
 
         var connection = new autobahn.Connection({
-            url: 'ws://127.0.0.1:9090/ws',
+            url: 'ws://' + window.location.hostname + ':9090/ws',
             realm: 'realm1',
             authmethods: ["jwt"],
             onchallenge: function (session, method, extra) {
