@@ -4,6 +4,7 @@
 require './vendor/autoload.php';
 require './config/bootstrap.php';
 
+use Cake\Core\Configure;
 use Websockets\Websocket\JwtAuthenticationProvider;
 use Websockets\Websocket\SessionManager;
 use Thruway\Peer\Router;
@@ -22,6 +23,9 @@ $router->addInternalClient($authProvClient);
 $sessionMgr = new SessionManager("realm1");
 $router->addInternalClient($sessionMgr);
 
-$transportProvider = new RatchetTransportProvider("127.0.0.1", 9090);
+$transportProvider = new RatchetTransportProvider(
+    Configure::read('Websockets.ip'),
+    Configure::read('Websockets.port')
+);
 $router->addTransportProvider($transportProvider);
 $router->start();
