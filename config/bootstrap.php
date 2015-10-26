@@ -8,6 +8,6 @@ Configure::write('Websockets', [
         'id' => 'id'
     ],
     'contain' => false,
-    'ip' => '127.0.0.1',
+    'ip' => '0.0.0.0',
     'port' => '9090',
 ]);
