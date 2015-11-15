@@ -5,8 +5,8 @@ namespace Websockets\Websocket;
 use Cake\Contoller\Controller;
 use Cake\Core\App;
 use Psr\Log\NullLogger;
-use Websockets\Websocket\ClientJwtAuthenticator;
 use Thruway\Logging\Logger;
+use Websockets\Websocket\ClientJwtAuthenticator;
 
 class Trigger extends Client
 {
@@ -39,7 +39,7 @@ class Trigger extends Client
                 $this->_call[2],
                 $this->_call[3]
             )->then([$this, 'success'], [$this, 'error']);
-        }else{
+        } else {
             $session->call('server.get_user_sessions', $this->_users)->then(
                 function ($res) use ($session) {
                     $session->publish(

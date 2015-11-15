@@ -52,8 +52,8 @@ class SessionManager extends Client
     {
         $users = array_intersect_key($this->sessions, array_flip($userIds));
         $sessions = [];
-        array_walk_recursive($users, function ($session) use (&$sessions) { 
-            $sessions[] = $session; 
+        array_walk_recursive($users, function ($session) use (&$sessions) {
+            $sessions[] = $session;
         });
         return $sessions;
     }

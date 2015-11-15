@@ -2,7 +2,6 @@
 
 namespace Websockets\Websocket;
 
-
 use Cake\Utility\Security;
 use JWT;
 use Thruway\Authentication\ClientAuthenticationInterface;
@@ -26,8 +25,7 @@ class ClientJwtAuthenticator implements ClientAuthenticationInterface
     /**
      * Constructor
      *
-     * @param string|int $authid
-     * @param string $key
+     * @param string|int $authid Authentication Id
      */
     public function __construct($authid)
     {
@@ -37,8 +35,8 @@ class ClientJwtAuthenticator implements ClientAuthenticationInterface
     /**
      * Get Authenticate message from challenge message
      *
-     * @param \Thruway\Message\ChallengeMessage $msg
-     * @return \Thruway\Message\AuthenticateMessage|boolean
+     * @param \Thruway\Message\ChallengeMessage $msg Challenge Message
+     * @return \Thruway\Message\AuthenticateMessage|bool Authenticate Message
      */
     public function getAuthenticateFromChallenge(ChallengeMessage $msg)
     {
@@ -63,7 +61,8 @@ class ClientJwtAuthenticator implements ClientAuthenticationInterface
     /**
      * Set authentication ID
      *
-     * @param string $authid
+     * @param string $authid Authentication Id
+     * @return string|int
      */
     public function setAuthId($authid)
     {
@@ -79,5 +78,4 @@ class ClientJwtAuthenticator implements ClientAuthenticationInterface
     {
         return ['jwt'];
     }
-
 }

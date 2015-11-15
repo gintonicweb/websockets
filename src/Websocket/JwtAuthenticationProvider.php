@@ -10,10 +10,25 @@ use Thruway\Authentication\AbstractAuthProviderClient;
 
 class JwtAuthenticationProvider extends AbstractAuthProviderClient
 {
-    public function getMethodName() {
+    /**
+     * Get which auth method this AuthProvider uses
+     *
+     * return string
+     */
+    public function getMethodName()
+    {
         return 'jwt';
     }
 
+    /**
+     * Authenticate users based on their JWT. This is inspired by
+     * the method _findUser in admads JWT plugin
+     *
+     * @see https://github.com/ADmad/cakephp-jwt-auth/blob/master/src/Auth/JwtAuthenticate.php
+     * @param string $token The token identifier.
+     * @param mixed $extra Unused
+     * @return array
+     */
     public function processAuthenticate($token, $extra = null)
     {
         try {
