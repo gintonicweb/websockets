@@ -34,7 +34,7 @@ define(function(require) {
             console.log("connected session with ID " + session.id);
             that.session = session;
             that.subscribes.forEach(function(sub) {
-                session.subscribe(sub['topic'], sub['method'])
+                session.subscribe(sub['topic'], sub['method'], { match: 'prefix' })
             });
         };
 
@@ -44,8 +44,6 @@ define(function(require) {
 
         connection.open();
     }
-
-    
 
     Websocket.prototype.subscribe = function(sub) {
         if (this.session == null) {
