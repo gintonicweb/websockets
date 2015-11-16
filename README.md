@@ -39,4 +39,23 @@ TODO (override src/Websocket/UserDb)
 
 ## Runnin the websocket server
 
-php vendor/bin/server.php
+You can use systemd to use the websocket server as a linux service. Create the
+file ```/etc/systemd/system/wsserver.service``` with the following content
+
+```
+[Unit]
+Description=Websockets Server
+
+[Service]
+ExecStart=/bin/sh -c "cd /var/www/YOURAPP && vendor/bin/wsserver"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+then run the following commands
+
+```
+systemctl enable wsserver.service
+systemctl start wsserver.service
+```
