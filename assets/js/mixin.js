@@ -23,13 +23,10 @@ define(function(require) {
         fetch: function(){
             var that = this;
             $.ajax({
-                url: this.fetchUrl,
-                method: "POST",
+                url: this.fetchUrl + '/' + this.props.id + '.json',
+                method: "GET",
                 dataType: 'json',
                 cache: false,
-                data: {
-                    id: this.props.id
-                }
             })
             .done(function(data){
                 if ($.isFunction(that.fetched)) {
@@ -44,7 +41,7 @@ define(function(require) {
         send: function(data) {
             var that = this;
             $.ajax({
-                url: this.sendUrl,
+                url: this.sendUrl + '.json',
                 method: "POST",
                 dataType: 'json',
                 cache: false,
