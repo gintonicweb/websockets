@@ -2,10 +2,7 @@
 
 namespace Websockets\Websocket;
 
-use Cake\Contoller\Controller;
-use Cake\Core\App;
-use Cake\Network\Request;
-use GintonicCMS\Websocket\Procedure\PublishProcedure;
+use Cake\Core\Configure;
 use Psr\Log\NullLogger;
 use Thruway\Logging\Logger;
 use Thruway\Peer\Client as ThruwayClient;
@@ -22,7 +19,9 @@ class Client extends ThruwayClient
     {
         Logger::set(new NullLogger());
         parent::__construct('realm1');
-        $this->addTransportProvider(new PawlTransportProvider("ws://127.0.0.1:9090/"));
+        $ip = Configure::read('Websockets.ip');
+        $port = Configure::read('Websockets.port');
+        $this->addTransportProvider(new PawlTransportProvider("ws://" . $ip . ":" . $port . "/"));
     }
 
     /**
