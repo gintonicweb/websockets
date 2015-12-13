@@ -34,7 +34,7 @@ define(function(require) {
             console.log("connected session with ID " + session.id);
             that.session = session;
             that.subscribes.forEach(function(sub) {
-                session.subscribe(sub['topic'], sub['method'], { match: 'prefix' })
+                session.subscribe(sub['topic'], sub['method'], { match: 'prefix' });
             });
         };
 
@@ -46,6 +46,9 @@ define(function(require) {
     }
 
     Websocket.prototype.subscribe = function(sub) {
+        if (typeof sub.topic === 'undefined' || sub.method === 'undefined') {
+            return;
+        }
         if (this.session == null) {
             this.subscribes.push(sub);
         } else {
