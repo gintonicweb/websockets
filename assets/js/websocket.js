@@ -1,14 +1,24 @@
 define(function(require) {
 
+    var $ = require('jquery');
     var autobahn = require('autobahn');
     var instance = null;
 
     var token = getCookie('Jwt');
+    var address = JSON.parse(decodeURIComponent(getCookie('Websockets')));
 
     function getCookie(name) {
         var value = "; " + document.cookie;
         var parts = value.split("; " + name + "=");
         if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+    function getAddress() {
+        var ip = window.location.hostname;
+        if (address.ip != '0.0.0.0') {
+            ip = address.ip
+        }
+        return 'ws://' + ip + ':' + address.port + '/ws';
     }
 
     function Websocket() {
@@ -22,7 +32,7 @@ define(function(require) {
         that = this;
 
         var connection = new autobahn.Connection({
-            url: 'ws://' + window.location.hostname + ':9090/ws',
+            url: getAddress(),
             realm: 'realm1',
             authmethods: ["jwt"],
             onchallenge: function (session, method, extra) {
