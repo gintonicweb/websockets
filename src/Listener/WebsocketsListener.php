@@ -16,21 +16,38 @@ class WebsocketsListener implements EventListenerInterface
     public function implementedEvents()
     {
         return [
-            'Auth.afterIdentify' => 'setSocketAddress',
-            'Users.afterSignup' => 'setSocketAddress',
+            'Auth.afterIdentify' => 'afterIdentify',
+            'Users.afterSignup' => 'afterSignup',
         ];
     }
 
     /**
      * todo
      */
-    public function setSocketAddress(Event $event, array $user)
+    public function afterIdentify(Event $event, array $user)
     {
         $cookie = $event->subject()
             ->_registry
             ->getController()
             ->loadComponent('Cookie');
 
+        $this->_setSocketAddress($cookie);
+    }
+
+    /**
+     * todo
+     */
+    public function afterSignup(Event $event)
+    {
+        $cookie = $event->subject()->loadComponent('Cookie');
+        $this->_setSocketAddress($cookie);
+    }
+
+    /**
+     * todo
+     */
+    protected function _setSocketAddress($cookie)
+    {
         $cookie->configKey('Websockets', [
             'encryption' => false,
             'expires' => 0,
